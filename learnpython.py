@@ -53,7 +53,7 @@ True and False  # => False
 False or True   # => True
 
 # True and False are actually 1 and 0 but with different keywords
-True + True # => 2
+True + True  # => 2
 True * 8    # => 8
 False - 5   # => -5
 
@@ -61,7 +61,7 @@ False - 5   # => -5
 0 == False  # => True
 1 == True   # => True
 2 == True   # => False
--5 != False # => True
+-5 != False  # => True
 
 # Using boolean logical operators on ints casts them to booleans for evaluation, but their non-cast value is returned
 # Don't mix up with bool(ints) and bitwise and/or (&,|)
@@ -117,6 +117,9 @@ b == a            # => True, a's and b's objects are equal
 # You can find the length of a string
 len("This is a string")  # => 16
 
+# You can also split strings based on a delimiter, by default, space
+"This string".split()
+
 # You can also format using f-strings or formatted string literals (in Python 3.6+)
 name = "Reiko"
 f"She said her name is {name}." # => "She said her name is Reiko"
@@ -168,16 +171,23 @@ some_unknown_var  # Raises a NameError
 # Equivalent of C's '?:' ternary operator
 "yahoo!" if 3 > 2 else 2  # => "yahoo!"
 
+"""LISTS"""
 # Lists store sequences
 li = []
 # You can start with a prefilled list
 other_li = [4, 5, 6]
 
-# Add stuff to the end of a list with append
+# Add stuff to the end of a list with extend
+li.extend("a", "b")  # li is now ["a", "b"]
+li = []
+
+# Add 1 element to the end with append
 li.append(1)    # li is now [1]
 li.append(2)    # li is now [1, 2]
 li.append(4)    # li is now [1, 2, 4]
 li.append(3)    # li is now [1, 2, 4, 3]
+li.append((5, 6))  # li is now [1, 2, 4, 3, (5, 6)]
+
 # Remove from the end with pop
 li.pop()        # => 3 and li is now [1, 2, 4]
 # Let's put it back
@@ -318,7 +328,6 @@ del filled_dict["one"]  # Removes the key "one" from filled dict
 # From Python 3.5 you can also use the additional unpacking options
 {'a': 1, **{'b': 2}}  # => {'a': 1, 'b': 2}
 {'a': 1, **{'a': 2}}  # => {'a': 2}
-
 
 
 # Sets store ... well sets
@@ -967,12 +976,12 @@ for i in double_numbers(range(1, 900000000)):  # `range` is a generator.
 
 # Just as you can create a list comprehension, you can create generator
 # comprehensions as well.
-values = (-x for x in [1,2,3,4,5])
+values = (-x for x in [1, 2, 3, 4, 5])
 for x in values:
     print(x)  # prints -1 -2 -3 -4 -5 to console/terminal
 
 # You can also cast a generator comprehension directly to a list.
-values = (-x for x in [1,2,3,4,5])
+values = (-x for x in [1, 2, 3, 4, 5])
 gen_to_list = list(values)
 print(gen_to_list)  # => [-1, -2, -3, -4, -5]
 
