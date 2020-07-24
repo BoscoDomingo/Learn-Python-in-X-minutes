@@ -680,6 +680,54 @@ dir(math)
 # This happens because the local folder has priority
 # over Python's built-in libraries.
 
+####################################################
+## 5.1 Pandas
+####################################################
+import pandas
+
+# Pandas works with Dataframes. Dataframes are comprised of rows and columns. Can be created from dictionaries
+my_data = {"Column1":["Row1", "Row2", "Row3", "Row4"], "Column2":[1, 2, 2, 3]}
+my_df = pandas.DataFrame(my_data)
+
+# read from/write to csv
+csv_filepath = "/somedirectory/csv"
+df = pandas.read_csv(csv_filepath) # df is our dataframe
+df.to_csv("name of the csv file.csv")
+
+# read from/write to excel
+xlsx_filepath = "/somedirectory/excel"
+df2 = pandas.read_excel(xlsx_filepath)
+df2.to_xlsx("name of the excel file.xlsx")
+
+df.head() # First 5 rows of data
+df_column1 = df[["Column1", "Column4"]] # creates a new Dataframe out of specific columns of df
+
+# loc is used to locate data with column headers and row indexes
+df.loc[0, "Column1"] # => Row1
+df.loc[0, "NotAColumn"] # => KeyError
+
+# iloc does the same but using only integers
+df.iloc[0, 0] # => Row1
+df.iloc[0, 4000] # IndexError
+
+# Both can be used for slicing, too
+sliced_df = df[0:2, 1:10]
+
+# Unique finds each individual value
+df["Column2"].unique() # => 1,2,3
+
+#Filtering by value can also be done
+df["Column2"] >= 2 # => 2, 3
+df1 = df[df["Column2"] >= 2]
+####################################################
+## 5.2 NumPy
+####################################################
+
+
+####################################################
+## 5.3 Keras
+####################################################
+
 
 ####################################################
 ## 6. Classes
@@ -698,8 +746,7 @@ class Human:
     # __repr__ etc. are called special methods (or sometimes called dunder methods)
     # You should not invent such names on your own.
     def __init__(self, name):
-        # Assign the argument to the instance's name attribute
-        self.name = name
+        self.name = name # Assign the argument to the instance's name attribute
 
         # Initialize property
         self._age = 0
@@ -718,7 +765,7 @@ class Human:
     def get_species(cls):
         return cls.species
 
-    # A static method is called without a class or instance reference
+    # A static method can be called without a class or instance reference
     @staticmethod
     def grunt():
         return "*grunt*"
@@ -991,7 +1038,6 @@ print(gen_to_list)  # => [-1, -2, -3, -4, -5]
 # will change the returned message.
 from functools import wraps
 
-
 def beg(target_function):
     @wraps(target_function)
     def wrapper(*args, **kwargs):
@@ -1005,8 +1051,7 @@ def beg(target_function):
 
 @beg
 def say(say_please=False):
-    msg = "Can you buy me a beer?"
-    return msg, say_please
+    return "Can you buy me a beer?", say_please
 
 
 print(say())                 # Can you buy me a beer?
