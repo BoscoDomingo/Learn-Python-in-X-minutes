@@ -683,9 +683,12 @@ dir(math)
 ####################################################
 ## 5.1 Pandas
 ####################################################
-import pandas
+# Pandas is a module made for data analysis and manipulation. It offers
+# data structures and operations for manipulating numerical tables and time series.
 
 # Pandas works with Dataframes. Dataframes are comprised of rows and columns. Can be created from dictionaries
+import pandas
+
 my_data = {"Column1":["Row1", "Row2", "Row3", "Row4"], "Column2":[1, 2, 2, 3]}
 my_df = pandas.DataFrame(my_data)
 
@@ -719,10 +722,55 @@ df["Column2"].unique() # => 1,2,3
 #Filtering by value can also be done
 df["Column2"] >= 2 # => 2, 3
 df1 = df[df["Column2"] >= 2]
+
 ####################################################
 ## 5.2 NumPy
 ####################################################
+# NumPy is a module adding support for large, multi-dimensional arrays
+# and matrices, along with a large collection of high-level mathematical
+# functions to operate on these arrays.
+import numpy as np
 
+array = np.array([0,1,2,3,4]) # creating a ndarray, the basic NumPy array. It works
+# as a usual array would, and can only take one data type
+
+a[3] # => 3
+array.size # => 5
+array.dim # => 1
+array.shape # => (5,) gives the size of the array for each dimension, in a tuple
+array.dtype # => dtype('int64')
+type(array) # => numpy.ndarray
+
+# NumPy can perform vector operations much faster than normal Python can
+u = np.array([1,0])
+v = np.array([0,1])
+y = np.array([1,2])
+
+# Addition and subtraction
+z = u + v # =>z is now the ndarray [1,1]
+z = u - v # => [1,-1]
+
+# Scalar multiplication, addition and subtraction
+z = 2*y # => [2,4]
+z = u+1 #=> [2,1]
+
+# Hadamard product (matrices of same dimensions)
+z = v*y # => [0,2]
+
+# Dot product (a measure of how similar 2 vectors are)
+z = np.dot(u,v) # => 1*0 + 0*1 = 0
+z = np.dot(u,y) # => 1*1 + 0*2 = 1
+
+# Universal functions are functions that work on ndarrays
+array.mean() # => 2
+array.max()
+b = np.array([0, np.pi/2, np.pi])
+np.sin(b) # [0,1,0]
+
+# linspace can be used to create an evenly-distributed array
+# given a starting and finishing point and number of elements
+np.linspace(0,5,num=6) # => [0,1,2,3,4,5]
+np.linspace(-2,2, num=9) # => [-2, -1.5, -1, -0.5. 0, 0.5, 1, 1.5, 2]
 
 ####################################################
 ## 5.3 Keras
@@ -809,8 +857,7 @@ if __name__ == '__main__':
     # Call the static method
     print(Human.grunt())            # => "*grunt*"
 
-    # Cannot call static method with instance of object
-    # because i.grunt() will automatically put "self" (the object i) as an argument
+    # Cannot call static method with instance of object because i.grunt() will automatically put "self" (the object i) as an argument
     print(i.grunt())                # => TypeError: grunt() takes 0 positional arguments but 1 was given
 
     # Update the property for this instance
