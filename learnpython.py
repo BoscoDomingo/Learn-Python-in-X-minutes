@@ -1,4 +1,11 @@
-
+####################################################
+## 0. Useful stuff about Python
+####################################################
+# No brackets are used for code blocks, instead, indentation is used
+# The general consensus is to use 4 spaces, but it is not necessary
+# What is necessary is to NOT mix tabs and spaces. Python will complain
+# NOTE: You can still press the "Tab" key, but make sure your IDE is set
+# up so that it will type 4 spaces per press.
 
 # Single line comments start with a number symbol.
 
@@ -117,7 +124,7 @@ b == a            # => True, a's and b's objects are equal
 # You can find the length of a string
 len("This is a string")  # => 16
 
-# You can also split strings based on a delimiter, by default, space
+# You can split strings based on a delimiter, by default, space
 "This string".split()
 
 # You can also format using f-strings or formatted string literals (in Python 3.6+)
@@ -201,6 +208,7 @@ li[-1]  # => 3
 # Looking out of bounds is an IndexError
 li[4]  # Raises an IndexError
 
+# Slicing
 # You can look at ranges with slice syntax.
 # The start index is included, the end index is not
 # (It's a closed/open range for you mathy types.)
@@ -713,7 +721,7 @@ df.loc[0, "NotAColumn"] # => KeyError
 df.iloc[0, 0] # => Row1
 df.iloc[0, 4000] # IndexError
 
-# Both can be used for slicing, too
+# Both can be used for slicing, too. Remember that 0:2 will have 2 rows, 0 and 1. It is a closed-open range( [0,2) = [0,1] )
 sliced_df = df[0:2, 1:10]
 
 # Unique finds each individual value
@@ -731,7 +739,7 @@ df1 = df[df["Column2"] >= 2]
 # functions to operate on these arrays.
 import numpy as np
 
-array = np.array([0,1,2,3,4]) # creating a ndarray, the basic NumPy array. It works
+array = np.array([0,1,2,3,4]) # creating a 1-dimensional ndarray, the basic NumPy array. It works
 # as a usual array would, and can only take one data type
 
 a[3] # => 3
@@ -771,6 +779,22 @@ np.sin(b) # [0,1,0]
 # given a starting and finishing point and number of elements
 np.linspace(0,5,num=6) # => [0,1,2,3,4,5]
 np.linspace(-2,2, num=9) # => [-2, -1.5, -1, -0.5. 0, 0.5, 1, 1.5, 2]
+
+
+# Arrays can be 2-Dimensional as well
+array = np.array([[11,12,13], [21,22,23], [31,32,33]])
+array.ndim # => 2
+array.shape # (3,3) where the first number is the number of lists (rows), the second is the number of elements in each list (columns)
+array.size # => 9 (3x3)
+b = np.array([[1,0,1],[0,1,1]])
+b.size # => (2,3)
+
+# And as with 1-D arrays, they can be operated upon, just like matrices
+# The only particular operation is matrix multiplication
+x = np.array([[0,1,1], [1,0,1]])
+y = np.array([[1,1], [1,1],[-1,1]])
+# since x's rows must equal y's columns
+mult = np.dot(x,y) # => [[0,0], [0,2]]
 
 ####################################################
 ## 5.3 Keras
@@ -1104,3 +1128,10 @@ def say(say_please=False):
 print(say())                 # Can you buy me a beer?
 print(say(say_please=True))  # Can you buy me a beer? Please! I am poor :(
 
+####################################################
+## 8. APIs
+####################################################
+# APIs allow different programs or code written in other languages
+# to communicate with yours through sets of methods, or interfaces.
+# REST APIs (REpresentational State Transfer) work over internet
+# protocols, usually HTTP with JSON messages, though it may vary.
