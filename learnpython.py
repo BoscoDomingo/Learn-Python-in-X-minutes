@@ -7,6 +7,9 @@
 # NOTE: You can still press the "Tab" key, but make sure your IDE is set
 # up so that it will type 4 spaces per press.
 
+# snake_case is the norm, as opposed to camelCase as is standard in other
+# languages
+
 # Single line comments start with a number symbol.
 
 """ Multiline strings can be written
@@ -17,9 +20,6 @@
 ####################################################
 ## 1. Primitive Datatypes and Operators
 ####################################################
-
-# You have numbers
-3  # => 3
 
 # Math is what you would expect
 1 + 1   # => 2
@@ -45,6 +45,25 @@
 # Enforce precedence with parentheses
 1 + 3 * 2  # => 7
 (1 + 3) * 2  # => 8
+
+# Work in other bases (binary, octal and hexadecimal)
+0b10 # => 2
+0o10 # => 8
+0x10 # => 16
+
+# Cast numbers
+int(-2.5) # => -2
+int("340")
+float(2)
+float("2467")
+
+# And even get infinity
+float("inf")
+float("-inf")
+
+# Scientific notation is also accepted
+2.99e8
+1.65e-30 
 
 # Boolean values are primitives (Note: the capitalization)
 True  # => True
@@ -73,6 +92,7 @@ False - 5   # => -5
 # Using boolean logical operators on ints casts them to booleans for evaluation, but their non-cast value is returned
 # Don't mix up with bool(ints) and bitwise and/or (&,|)
 bool(0)     # => False
+bool(0.0)   # => False
 bool(4)     # => True
 bool(-6)    # => True
 0 and 2     # => 0
@@ -146,6 +166,7 @@ None is None   # => True
 # All other values are True
 bool(0)   # => False
 bool("")  # => False
+bool("False")   # => True
 bool([])  # => False
 bool({})  # => False
 bool(())  # => False
@@ -672,6 +693,9 @@ from math import *
 # You can shorten module names
 import math as m
 math.sqrt(16) == m.sqrt(16)  # => True
+
+# And even import specific functions with aliases
+from math import sqrt as alias_for_sqrt
 
 # Python modules are just ordinary Python files. You
 # can write your own, and import them. The name of the
