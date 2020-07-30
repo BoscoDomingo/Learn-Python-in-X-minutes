@@ -10,12 +10,15 @@
 # snake_case is the norm, as opposed to camelCase as is standard in other
 # languages
 
-# Single line comments start with a number symbol.
+# Single line comments start with a hash symbol.
 
 """ Multiline strings can be written
     using three "s, and are often used
     as documentation.
 """
+
+type(a) # Used to find out the type of a variable
+help(str) # Used to print help about a class or function
 
 ####################################################
 ## 1. Primitive Datatypes and Operators
@@ -50,16 +53,6 @@
 0b10 # => 2
 0o10 # => 8
 0x10 # => 16
-
-# Cast numbers
-int(-2.5) # => -2
-int("340")
-float(2)
-float("2467")
-
-# And even get infinity
-float("inf")
-float("-inf")
 
 # Scientific notation is also accepted
 2.99e8
@@ -129,7 +122,7 @@ b = [1, 2, 3, 4]  # Point b at a new list, [1, 2, 3, 4]
 b is a            # => False, a and b do not refer to the same object
 b == a            # => True, a's and b's objects are equal
 
-# Strings are created with " or '
+# Strings are created with " or '. There is no 'char' type unlike in other languages
 "This is a string."
 'This is also a string.'
 
@@ -153,8 +146,19 @@ f"She said her name is {name}." # => "She said her name is Reiko"
 # You can basically put any Python statement inside the braces and it will be output in the string.
 f"{name} is {len(name)} characters long." # => "Reiko is 5 characters long."
 
+# And raw strings too
+path = r"C:\Users\Documents" # => Prints it as is
 
-# None is an object
+# Bytes are a thing, usually used when working with raw binary data
+data = b"some binaty data"
+# Python allows encoding and decoding of said data into strings and viceversa
+string_1 = "Hey, thís is ä string with Ùnicode charactêrs"
+bytes_1 = string_1.encode("utf-8") # => b'Hey, th\xc3\xads is \xc3\xa4 string with \xc3\x99nicode charact\xc3\xaars'
+bytes_1.decode("utf-8") # => Hey, thís is ä string with Ùnicode charactêrs
+
+
+
+# 'None' is an object
 None  # => None
 
 # Don't use the equality "==" symbol to compare objects to None
@@ -170,6 +174,17 @@ bool("False")   # => True
 bool([])  # => False
 bool({})  # => False
 bool(())  # => False
+
+# Casting is available through constructors
+int(-2.5) # => -2
+int("340")
+float(2)
+float("2467")
+str(450)
+
+# And you can even get infinity
+float("inf")
+float("-inf")
 
 ####################################################
 ## 2. Variables and Collections
