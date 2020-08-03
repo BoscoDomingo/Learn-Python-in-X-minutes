@@ -272,10 +272,24 @@ li[::-1]  # Return list in reverse order => [3, 4, 2, 1]
 # Use any combination of these to make advanced slices
 # li[start:end:step]
 
-# Make a one layer deep copy using slices
+# Make a one-layer-deep shallow copy using slices
 li2 = li[:]  # => li2 = [1, 2, 4, 3] but (li2 is li) will result in false.
 
-# Remove arbitrary elements from a list with "del"
+# Other ways to copy lists are:
+li2 = list(li)  # This tends to be the best option, since it will work almost
+                # always regardless of li's type
+li2 = li.copy() # Only works if li is a list
+
+# CAREFUL: if a list contains mutable objects, modifying them in li2 would
+# still change them in li, even though they are different lists. For example:
+li1 = [[1,2], [3,4]]
+li2 = li1[:] # list(li1) or li1.copy() would also work
+
+li2 is li1 # False
+li2 == li1 # True
+li2[0] is li1[0] # True
+
+# Remove arbitrary elements by index from a list with "del"
 del li[2]  # li is now [1, 2, 3]
 
 # Remove first occurrence of a value
@@ -301,6 +315,15 @@ li.extend(other_li)  # Now li is [1, 2, 3, 4, 5, 6]
 
 # Examine the length with "len()"
 len(li)  # => 6
+
+# Reverse and sort lists
+li.reverse() # [6, 5, 4, 3, 2, 1]
+li.sort() # [1, 2, 3, 4, 5, 6]
+
+# reversed and sorted are used to not modify the original list, but return
+# a new one
+print(sorted(li)) # returns new list
+print(reversed(li)) # returns new iterator, not list
 
 
 # Tuples are like lists but are immutable.
@@ -378,7 +401,7 @@ filled_dict.get("four", 4)  # => 4
 filled_dict.setdefault("five", 5)  # filled_dict["five"] is set to 5
 filled_dict.setdefault("five", 6)  # filled_dict["five"] is still 5
 
-# Adding to a dictionary
+# Adding to a dictionary (updates value if key already existed)
 filled_dict.update({"four":4})  # => {"one": 1, "two": 2, "three": 3, "four": 4}
 filled_dict["four"] = 4         # another way to add to dict
 
@@ -405,7 +428,12 @@ filled_set.add(5)  # filled_set is now {1, 2, 3, 4, 5}
 # Sets do not have duplicate elements
 filled_set.add(5)  # it remains as before {1, 2, 3, 4, 5}
 
-# Do set intersection with &
+# Remove one or more items with remove or discard
+filled_set.remove(6) # Raises KeyError since there's no 6
+filled_set.discard(6) # Is silent
+
+# NOTE: Set operations can also be performed with functions, not shown here
+# Do set intersection with &  
 other_set = {3, 4, 5, 6}
 filled_set & other_set  # => {3, 4, 5}
 
@@ -509,6 +537,16 @@ for i, value in enumerate(animals):
     print(i, value)
 
 """
+To loop over a dictionary, you can use the for ... in ... with the dictionary
+itself, which iterates over the keys, as well as .items() for key value tuples
+or .values() to only get the values:
+"""
+sample_dictionary = {1: "one", 2: "two"}
+for key in sample_dictionary:
+    print(key)
+for key, value in sample_dictionary.items():
+    print(key, value)
+"""
 While loops go until a condition is no longer met.
 prints:
     0
@@ -520,6 +558,20 @@ x = 0
 while x < 4:
     print(x)
     x += 1  # Shorthand for x = x + 1
+
+# Exception Handling
+""" Common errors are:
+    IndexError: Index out of range
+    ValueError: Object is of the right type, but contains an inappropriate
+                value, eg. int("asdasd")
+    KeyError: Look-up in a mapping fails. No such key is present
+    TypeError: The type is not the expected. Usually not checked for; if your
+                code works for more types than expected, it is seen as good
+                in Python. If it fails, the exception will be raised anyways
+"""
+# EAFP (Easier to Ask for Forgiveness than Permission) is deeply ingrained in
+# Python. Do not check for specific error codes, but rather for exceptions,
+# and avoid preemptive checks, as that would be "asking for permission"
 
 # Handle exceptions with a try/except block
 try:
