@@ -1,7 +1,13 @@
 ####################################################
 ## 0. Useful stuff about Python
 ####################################################
-# No brackets are used for code blocks, instead, indentation is used
+# Pyhton Enhancement Proposals, or PEPs, are useful conventions which guide
+# the user in writing readable and pretty code, as well as many other
+# details about Python. PEP-8 is the Style Guide (https://www.python.org/dev/peps/pep-0008/)
+
+# According to PEP-8, line length should be limited to 79 characters
+
+# No brackets are used for code blocks. Instead, indentation is used
 # The general consensus is to use 4 spaces, but it is not necessary
 # What is necessary is to NOT mix tabs and spaces. Python will complain
 # NOTE: You can still press the "Tab" key, but make sure your IDE is set
@@ -14,11 +20,31 @@
 
 """ Multiline strings can be written
     using three "s, and are often used
-    as documentation.
+    as documentation (docstrings).
 """
 
-type(a) # Used to find out the type of a variable
-help(str) # Used to print help about a class or function
+type(a)     # Used to find out the type of a variable
+help(str)   # Used to print documentation about a class or function (the
+            # one written in the triple double-quotes)
+            
+# Special Python variables will be surrounded by double underscores.
+# A particularly useful one is __name__, which lets the module know 
+# if it is the one being executed as the main program, in which case that
+# module's __name__ = "__main__", otherwise it will be its own filename.
+# https://www.geeksforgeeks.org/__name__-special-variable-python/
+
+# EVERYTHING in Python is an object
+
+# Python has a print function. We'll look at functions later, for now:
+print("I'm Python. Nice to meet you!")  # => I'm Python. Nice to meet you!
+
+# By default the print function also prints out a newline at the end.
+# Use the optional argument end to change the end string.
+print("Hello, World", end="!")  # => Hello, World!
+
+# Simple way to get user input data from console
+input_string_var = input("Enter some data: ") # Returns the data as a string
+# Note: In earlier versions of Python, input() method was named as raw_input()
 
 ####################################################
 ## 1. Primitive Datatypes and Operators
@@ -157,8 +183,7 @@ bytes_1 = string_1.encode("utf-8") # => b'Hey, th\xc3\xads is \xc3\xa4 string wi
 bytes_1.decode("utf-8") # => Hey, thís is ä string with Ùnicode charactêrs
 
 
-
-# 'None' is an object
+# 'None' is an object too
 None  # => None
 
 # Don't use the equality "==" symbol to compare objects to None
@@ -190,19 +215,10 @@ float("-inf")
 ## 2. Variables and Collections
 ####################################################
 
-# Python has a print function
-print("I'm Python. Nice to meet you!")  # => I'm Python. Nice to meet you!
-
-# By default the print function also prints out a newline at the end.
-# Use the optional argument end to change the end string.
-print("Hello, World", end="!")  # => Hello, World!
-
-# Simple way to get input data from console
-input_string_var = input("Enter some data: ") # Returns the data as a string
-# Note: In earlier versions of Python, input() method was named as raw_input()
-
-# There are no declarations, only assignments.
-# Convention is to use lower_case_with_underscores
+# There are no declarations, only assignments. A new object is created
+# on every assignment, but x = 300, x = 5, x = 300 will have created 2
+# separate int objects. Technically, variables in Python are actually
+# references to objects
 some_var = 5
 some_var  # => 5
 
@@ -214,7 +230,6 @@ some_unknown_var  # Raises a NameError
 # Equivalent of C's '?:' ternary operator
 "yahoo!" if 3 > 2 else 2  # => "yahoo!"
 
-"""LISTS"""
 # Lists store sequences
 li = []
 # You can start with a prefilled list
@@ -232,6 +247,7 @@ li.append(3)    # li is now [1, 2, 4, 3]
 li.append((5, 6))  # li is now [1, 2, 4, 3, (5, 6)]
 
 # Remove from the end with pop
+li.pop()        # => (5,6) and li is now [1, 2, 4, 3]
 li.pop()        # => 3 and li is now [1, 2, 4]
 # Let's put it back
 li.append(3)    # li is now [1, 2, 4, 3] again.
@@ -591,20 +607,71 @@ def add(x, y):
     print("x is {} and y is {}".format(x, y))
     return x + y  # Return values with a return statement
 
+# A function can be stopped prematurely with return, in which case None will
+# be returned instead
+def premature_stop_square(x):
+    if(type(x) != "int"):
+        return
+    return x*x
+
 # Calling functions with parameters
 add(5, 6)  # => prints out "x is 5 and y is 6" and returns 11
 
 # Another way to call functions is with keyword arguments
 add(y=6, x=5)  # Keyword arguments can arrive in any order.
 
-# You can define functions that take a variable number of
+# Function Scope
+x = 5
+
+def set_x(num):
+    # Local var x not the same as global variable x
+    x = num    # => 43
+    print(x)   # => 43
+
+def set_global_x(num):
+    global x
+    print(x)   # => 5
+    x = num    # global var x is now set to 6
+    print(x)   # => 6
+
+set_x(43)
+set_global_x(6)
+
+# Arguments can also have default values, making them optional. These default
+# expressions are only evaluated once, meaning a = 5 and b= 5 will occur only
+# the first time the function is called. Any other time they won't happen 
+def operation_with_defaults(a=5, b=4):
+    print(a+b)
+
+operation_with_defaults(2) # => 6
+
+# Always use immutable objects, such as ints or strings, for default values
+# or None, if you want to use mutable ones, such as Lists, for the reason
+# mentioned above
+def add_to_list(list=[]):  # Do not do this
+    list.append("a")
+    print(list)
+
+add_to_list()  # [a]
+add_to_list()  # [a, a]
+add_to_list()  # [a, a, a]
+
+
+def add_to_list_correct(list=None):  # Do this instead
+    if list is None:
+        list = []
+    list.append("a")
+    print(list)
+
+
+# You can define functions that take an indefinite number of
 # positional arguments
 def varargs(*args):
     return args
 
 varargs(1, 2, 3)  # => (1, 2, 3)
 
-# You can define functions that take a variable number of
+# You can define functions that take an indefinite number of
 # keyword arguments, as well
 def keyword_args(**kwargs):
     return kwargs
@@ -640,23 +707,6 @@ x = 1
 y = 2
 x, y = swap(x, y)     # => x = 2, y = 1
 # (x, y) = swap(x,y)  # Again parenthesis have been excluded but can be included.
-
-# Function Scope
-x = 5
-
-def set_x(num):
-    # Local var x not the same as global variable x
-    x = num    # => 43
-    print(x)   # => 43
-
-def set_global_x(num):
-    global x
-    print(x)   # => 5
-    x = num    # global var x is now set to 6
-    print(x)   # => 6
-
-set_x(43)
-set_global_x(6)
 
 
 # Python has first class functions
@@ -903,12 +953,11 @@ class Human:
 # This __name__ check makes sure this code block is only executed when this
 # module is the main program.
 if __name__ == '__main__':
-    # Instantiate a class
+    # Instantiate a class, creating an object of said class
     i = Human(name="Ian")
     i.say("hi")                     # "Ian: hi"
     j = Human("Joel")
     j.say("hello")                  # "Joel: hello"
-    # i and j are instances of type Human, or in other words: they are Human objects
 
     # Call our class method
     i.say(i.get_species())          # "Ian: H. sapiens"
@@ -932,7 +981,15 @@ if __name__ == '__main__':
     del i.age
     # i.age                         # => this would raise an AttributeError
 
-
+# Objects can be compared by value and by identity
+# Value comparison can be done programmatically,
+# whereas identity comparison is carried out by the language itself 
+r = [1, 2, 3]
+s = r
+print(r is s) # => True
+s = [1, 2, 3]
+print(r is s) # => False, they have different identities
+print(r == s) # => True, they have the same value
 ####################################################
 ## 6.1 Inheritance
 ####################################################
