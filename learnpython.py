@@ -788,6 +788,8 @@ list(filter(lambda x: x > 5, [3, 4, 5, 6, 7]))  # => [6, 7]
 # You can construct set and dict comprehensions as well.
 {x for x in 'abcddeef' if x not in 'abc'}  # => {'d', 'e', 'f'}
 {x: x**2 for x in range(5)}  # => {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
+{value: key for key, value in some_dict} # This would "reverse" some_dict,
+# but keys could be overwritten since values are not unique within a dict 
 
 
 ####################################################
@@ -1226,14 +1228,17 @@ if __name__ == '__main__':
 ## 7. Advanced
 ####################################################
 
-# Generators help you make lazy code.
+# Generators help you make lazy code. Generators must have at least 1 "yield"
+# and can have return statements too. They create single-use generator objects
+# which are equal to iterators
 def double_numbers(iterable):
     for i in iterable:
         yield i + i
 
 # Generators are memory-efficient because they only load the data needed to
 # process the next value in the iterable. This allows them to perform
-# operations on otherwise prohibitively large value ranges.
+# operations on otherwise prohibitively large value ranges. This is called
+# "lazy" loading
 # NOTE: `range` replaces `xrange` in Python 3.
 for i in double_numbers(range(1, 900000000)):  # `range` is a generator.
     print(i)
@@ -1241,7 +1246,7 @@ for i in double_numbers(range(1, 900000000)):  # `range` is a generator.
         break
 
 # Just as you can create a list comprehension, you can create generator
-# comprehensions as well.
+# comprehensions as well using parentheses.
 values = (-x for x in [1, 2, 3, 4, 5])
 for x in values:
     print(x)  # prints -1 -2 -3 -4 -5 to console/terminal
@@ -1251,6 +1256,23 @@ values = (-x for x in [1, 2, 3, 4, 5])
 gen_to_list = list(values)
 print(gen_to_list)  # => [-1, -2, -3, -4, -5]
 
+
+# The zip() function takes 0 or more iterables, aggregates them in a tuple,
+# element by element (first element from all iterables, then second,
+# etc), and returns an iterator of said tuples
+number_list = [1, 2, 3]
+str_list = ['one', 'two', 'three', 'four']
+# 'four' will never have a pair, since number_list only goes up to 3
+
+print(list(zip())) # => []
+zip_result = zip(number_list, str_list)
+print(set(zip_result)) # => {(2, 'two'), (1, 'one'), (3, 'three')} (order is random)
+print(list(zip_result)) # => [(1, 'one'), (2, 'two'), (3, 'three')]
+
+# zip can also be used to unzip collections into tuples
+numbers, names = zip(list(zip_result))
+numbers # => (1, 2, 3)
+names # => ('one', 'two', 'three')
 
 # Decorators
 # In this example `beg` wraps `say`. If say_please is True then it
