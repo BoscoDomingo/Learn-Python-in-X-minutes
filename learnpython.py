@@ -960,6 +960,8 @@ class Human:
     # namespaces. Methods(or objects or attributes) like: __init__, __str__,
     # __repr__ etc. are called special methods (or sometimes called dunder methods)
     # You should not invent such names on your own.
+    # __init__() is an initializer, NOT a constructor as in other languages.
+    # The object already exists, __init__ only gives values to attributes
     def __init__(self, name):
         self.name = name # Assign the argument to the instance's name attribute
 
@@ -1010,6 +1012,7 @@ if __name__ == '__main__':
     # Instantiate a class, creating an object of said class
     i = Human(name="Ian")
     i.say("hi")                     # "Ian: hi"
+    Human.say(i, "hi")              # Completely equivalent
     j = Human("Joel")
     j.say("hello")                  # "Joel: hello"
 
