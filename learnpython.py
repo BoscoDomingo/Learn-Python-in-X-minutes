@@ -1228,7 +1228,49 @@ if __name__ == '__main__':
 
 
 ####################################################
-## 7. Advanced
+## 7. File Management
+####################################################
+
+# Files in Python can be read or written to, as well as updated, supporting
+# either bits or text as well as specific encodings. By default, it will open
+# it to read text ("rt"). The best syntax is the following:
+with open("filename", "mode", "encoding") as f:
+    # Operate with the file, it'll be closed once done
+    f.read()
+
+# But you can also use the old way
+f  = open("filename", "mode", "encoding")
+# Remember to close files once done if you chose this
+f.close()
+"""
+Modes can be:
+    r - Read (default)
+    w - Write. Overwrites if already exists, creates if not
+    a - Append. Creates if non-existant
+    x - Exclusive creation. If the file already exists, it fails
+    + - Update (read & write)
+    
+    t - Text mode (default)
+    b - Binary mode
+
+These 2 blocks can actually be combined, e.g. "r+b", "a", "xb", "+"
+"""
+
+with open("filename", "mode", "encoding") as f:    
+# Files can be read with read() or written to with write()
+    f.read(5) # Reads 5 characters, and moves the reader pointer
+    f.readline() # A more elegant way to read entire lines individually
+    f.readlines() # Returns a list with every line in the file
+    f.write("This is a string") # Writes with the specified encoding
+    f.writelines(["This is a\n", "list of strings"]) # Writes without newlines
+            # unless added in by hand
+
+# To relocate the pointer to a specific position, use seek()
+    f.seek(0) # Returns to first character
+
+
+####################################################
+## 8. Advanced
 ####################################################
 
 # Generators help you make lazy code. Generators must have at least 1 "yield"
