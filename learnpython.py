@@ -1232,8 +1232,8 @@ if __name__ == '__main__':
 ####################################################
 
 # Files in Python can be read or written to, as well as updated, supporting
-# either bits or text as well as specific encodings. By default, it will open
-# it to read text ("rt"). The best syntax is the following:
+# either binary or encoded text files. By default, files are open to read text
+# The best syntax is the following:
 with open("filename", "mode", "encoding") as f:
     # Operate with the file, it'll be closed once done
     f.read()
@@ -1251,7 +1251,7 @@ Modes can be:
     + - Update (read & write)
     
     t - Text mode (default)
-    b - Binary mode
+    b - Binary mode (using bytes objects)
 
 These 2 blocks can actually be combined, e.g. "r+b", "a", "xb", "+"
 """
@@ -1344,7 +1344,42 @@ print(say())                 # Can you buy me a beer?
 print(say(say_please=True))  # Can you buy me a beer? Please! I am poor :(
 
 ####################################################
-## 8. APIs
+## 9. Testing
+####################################################
+# Automated tests are a fantastic way to ensure code works even after changes
+# are pushed, and to keep things running without spending hours manually
+# checking for errors in menial tasks
+
+# Python includes the module unittest not only for Unit Tests, but many others
+import unittest
+
+# Define a class which inherits from the type of test you want
+class Some_Testing_Class(unittest.TestCase):
+    # You can perform set ups and tear downs per test method
+    def setUp(self):
+        # Create objects, open files...
+        pass
+    
+    # And define the tests inside the class, always prefixing with "test_"
+    def test_something(self):
+        # Perform the test itself with the included tools, such as assertions
+        self.assertEqual(some_function(), 4) # Fails if the function doesn't
+                        # return 4. Other types are asertTrue, asertRaises...
+        pass
+        
+    def tearDown(self):
+        # Delete objects, close files...
+        pass
+    
+if __name__ == "__main__":
+    unittest.main()
+    
+# And all tests included in the class will be run when the file containing
+# this class is run
+
+
+####################################################
+## 10. APIs
 ####################################################
 # APIs allow different programs or code written in other languages
 # to communicate with yours through sets of methods, or interfaces.
