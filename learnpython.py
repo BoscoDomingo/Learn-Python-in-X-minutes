@@ -793,7 +793,7 @@ list(filter(lambda x: x > 5, [3, 4, 5, 6, 7]))  # => [6, 7]
 
 
 ####################################################
-## 5. Modules
+## 5. Modules and Virtual Environments
 ####################################################
 
 # You can import modules
@@ -830,6 +830,33 @@ dir(math)
 # be loaded instead of the built-in Python module.
 # This happens because the local folder has priority
 # over Python's built-in libraries.
+
+# NOTE: Virtual environments are incredibly useful and highly recommended
+# to keep your projects' dependencies unrelated to each other, thus avoiding
+# potential conflicts. To set them up, use the 'venv' tool included in Python
+# or virtualenv installed through pip. We'll use venv.
+
+# On Windows (either PowerShell or cmd work):
+# Ensure pip is up-to-date (comes with Python >=3.4):
+python -m pip install --upgrade pip
+# Then move to the desired folder and create the virtual env.
+cd path/to/your/directory
+python -m venv <NAME>
+
+# And activate the environment
+<NAME>\Scripts\activate.bat # on cmd
+<NAME>\Scripts\Activate.ps1 # on PowerShell
+        # NOTE: you might get an error on PS. Fix it by running
+        # Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+# This should now put you inside the virtual environment
+# Again, ensure pip is up to date and start installing modules!
+python -m pip install --upgrade pip
+# `easy_install pip` if that one doesn't work
+pip install modulename
+
+# And exit the virtual environment when done
+deactivate
 
 ####################################################
 ## 5.1 Pandas
