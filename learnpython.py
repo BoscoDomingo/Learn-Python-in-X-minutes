@@ -841,11 +841,11 @@ dir(math)
 python -m pip install --upgrade pip
 # Then move to the desired folder and create the virtual env.
 cd path/to/your/directory
-python -m venv <NAME>
+python -m venv <MyEnv>
 
 # And activate the environment
-<NAME>\Scripts\activate.bat # on cmd
-<NAME>\Scripts\Activate.ps1 # on PowerShell
+<MyEnv>\Scripts\activate.bat # on cmd
+<MyEnv>\Scripts\Activate.ps1 # on PowerShell
         # NOTE: you might get an error on PS. Fix it by running
         # Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
@@ -864,15 +864,17 @@ deactivate
 # Pandas is a module made for data analysis and manipulation. It offers
 # data structures and operations for manipulating numerical tables and time series.
 
-# Pandas works with Dataframes. Dataframes are comprised of rows and columns. Can be created from dictionaries
+# Pandas works with Dataframes, comprised of rows and columns.
+# They can be created from dictionaries
 import pandas
 
-my_data = {"Column1":["Row1", "Row2", "Row3", "Row4"], "Column2":[1, 2, 2, 3]}
+my_data = {"Column1": ["Row1", "Row2", "Row3", "Row4"],
+           "Column2": [1, 2, 2, 3]}
 my_df = pandas.DataFrame(my_data)
 
 # read from/write to csv
 csv_filepath = "/somedirectory/csv"
-df = pandas.read_csv(csv_filepath) # df is our dataframe
+df = pandas.read_csv(csv_filepath)  # df is our dataframe
 df.to_csv("name of the csv file.csv")
 
 # read from/write to excel
@@ -880,25 +882,34 @@ xlsx_filepath = "/somedirectory/excel"
 df2 = pandas.read_excel(xlsx_filepath)
 df2.to_xlsx("name of the excel file.xlsx")
 
-df.head() # First 5 rows of data
-df_column1 = df[["Column1", "Column4"]] # creates a new Dataframe out of specific columns of df
+# Change the indexes for the rows with index()
+df.index = ["ROW1", "ROW2"]
+
+df.head()  # First 5 rows of data
+df_column1 = df[["Column1", "Column4"]] # Creates a new Dataframe out of specific columns
+
+# Use single or double brackets to obtain Series or DataFrames
+print(df['Column3'])    # Print out column as a Series
+print(df[['Column3']])  # Print out column as a DataFrame
 
 # loc is used to locate data with column headers and row indexes
-df.loc[0, "Column1"] # => Row1
-df.loc[0, "NotAColumn"] # => KeyError
+df.loc[0, "Column1"]  # => Row1
+df.loc[0, "NotAColumn"]  # => KeyError
 
 # iloc does the same but using only integers
-df.iloc[0, 0] # => Row1
-df.iloc[0, 4000] # IndexError
+df.iloc[0, 0]  # => Row1
+df.iloc[0, 4000]  # IndexError
 
-# Both can be used for slicing, too. Remember that 0:2 will have 2 rows, 0 and 1. It is a closed-open range( [0,2) = [0,1] )
+# Both can be used for slicing, too.
+# Remember that 0:2 will have 2 rows: 0 and 1. It is a closed-open range
+# In mathematical terms, [0,2) = [0,1]
 sliced_df = df[0:2, 1:10]
 
 # Unique finds each individual value
-df["Column2"].unique() # => 1,2,3
+df["Column2"].unique()  # => 1,2,3
 
 #Filtering by value can also be done
-df["Column2"] >= 2 # => 2, 3
+df["Column2"] >= 2  # => 2, 3
 df1 = df[df["Column2"] >= 2]
 
 ####################################################
@@ -929,42 +940,43 @@ z = u + v # =>z is now the ndarray [1,1]
 z = u - v # => [1,-1]
 
 # Scalar multiplication, addition and subtraction
-z = 2*y # => [2,4]
-z = u+1 #=> [2,1]
+z = 2 * y # => [2,4]
+z = u + 1 #=> [2,1]
 
 # Hadamard product (matrices of same dimensions)
-z = v*y # => [0,2]
+z = v*y  # => [0,2]
 
 # Dot product (a measure of how similar 2 vectors are)
-z = np.dot(u,v) # => 1*0 + 0*1 = 0
-z = np.dot(u,y) # => 1*1 + 0*2 = 1
+z = np.dot(u, v)  # => 1*0 + 0*1 = 0
+z = np.dot(u, y)  # => 1*1 + 0*2 = 1
 
 # Universal functions are functions that work on ndarrays
-array.mean() # => 2
+array.mean()  # => 2
 array.max()
 b = np.array([0, np.pi/2, np.pi])
-np.sin(b) # [0,1,0]
+np.sin(b)  # [0,1,0]
 
 # linspace can be used to create an evenly-distributed array
 # given a starting and finishing point and number of elements
-np.linspace(0,5,num=6) # => [0,1,2,3,4,5]
-np.linspace(-2,2, num=9) # => [-2, -1.5, -1, -0.5. 0, 0.5, 1, 1.5, 2]
+np.linspace(0, 5, num=6)  # => [0,1,2,3,4,5]
+np.linspace(-2, 2, num=9)  # => [-2, -1.5, -1, -0.5. 0, 0.5, 1, 1.5, 2]
 
 
 # Arrays can be 2-Dimensional as well
-array = np.array([[11,12,13], [21,22,23], [31,32,33]])
-array.ndim # => 2
-array.shape # (3,3) where the first number is the number of lists (rows), the second is the number of elements in each list (columns)
-array.size # => 9 (3x3)
-b = np.array([[1,0,1],[0,1,1]])
-b.size # => (2,3)
+array = np.array([[11, 12, 13], [21, 22, 23], [31, 32, 33]])
+array.ndim  # => 2
+array.shape # (3,3) where the first number is the number of lists (rows),
+# the second is the number of elements in each list (columns)
+array.size  # => 9 (3x3)
+b = np.array([[1, 0, 1], [0, 1, 1]])
+b.size  # => (2,3)
 
 # And as with 1-D arrays, they can be operated upon, just like matrices
 # The only particular operation is matrix multiplication
-x = np.array([[0,1,1], [1,0,1]])
-y = np.array([[1,1], [1,1],[-1,1]])
+x = np.array([[0, 1, 1], [1, 0, 1]])
+y = np.array([[1, 1], [1, 1], [-1, 1]])
 # since x's rows must equal y's columns
-mult = np.dot(x,y) # => [[0,0], [0,2]]
+mult = np.dot(x, y)  # => [[0,0], [0,2]]
 
 ####################################################
 ## 5.3 Keras
