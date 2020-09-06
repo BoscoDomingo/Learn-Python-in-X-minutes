@@ -23,9 +23,11 @@
     as documentation (docstrings).
 """
 
-type(a)     # Used to find out the type of a variable
-help(str)   # Used to print documentation about a class or function (the
-            # one written in the triple double-quotes)
+type(a_variable)    # Used to find out the type of a variable
+help(an_object) # Used to print documentation about a class or function (the
+                # ones written in the triple double-quotes)
+dir(an_object)  # Used to find all the variable and function names of
+                # an object or module
             
 # Special Python variables will be surrounded by double underscores.
 # A particularly useful one is __name__, which lets the module know 
@@ -82,7 +84,10 @@ input_string_var = input("Enter some data: ") # Returns the data as a string
 
 # Scientific notation is also accepted
 2.99e8
-1.65e-30 
+1.65e-30
+
+# Using underscores, you can make large numbers more legible
+10000000 == 10_000_000 # => True
 
 # Boolean values are primitives (Note: the capitalization)
 True  # => True
@@ -171,6 +176,8 @@ name = "Reiko"
 f"She said her name is {name}." # => "She said her name is Reiko"
 # You can basically put any Python statement inside the braces and it will be output in the string.
 f"{name} is {len(name)} characters long." # => "Reiko is 5 characters long."
+number = 250_000_000
+f"{number:,}" # => 100,000,000
 
 # And raw strings too
 path = r"C:\Users\Documents" # => Prints it as is
@@ -325,6 +332,8 @@ li.sort() # [1, 2, 3, 4, 5, 6]
 print(sorted(li)) # returns new list
 print(reversed(li)) # returns new iterator, not list
 
+# Generally, you want to use sorted() since it can work with immutable objects
+# and won't mess up the original
 
 # Tuples are like lists but are immutable.
 tup = (1, 2, 3)
@@ -873,13 +882,11 @@ my_data = {"Column1": ["Row1", "Row2", "Row3", "Row4"],
 my_df = pandas.DataFrame(my_data)
 
 # read from/write to csv
-csv_filepath = "/somedirectory/csv"
-df = pandas.read_csv(csv_filepath)  # df is our dataframe
+df = pandas.read_csv("/somedirectory/csv")  # df is our dataframe
 df.to_csv("name of the csv file.csv")
 
 # read from/write to excel
-xlsx_filepath = "/somedirectory/excel"
-df2 = pandas.read_excel(xlsx_filepath)
+df2 = pandas.read_excel("/somedirectory/excel")
 df2.to_xlsx("name of the excel file.xlsx")
 
 # Change the indexes for the rows with index()
