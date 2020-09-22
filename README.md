@@ -1,10 +1,12 @@
 # Learn Python in X minutes
 
-Within the `learnpython.py` module you'll find general knowledge and some useful tips about Python 3. Most of the stuff you'd learn from online courses will be featured, and it will cover the fundamentals as well as some advanced elements of the language. Enjoy!!
+Within the `learnpython.py` file you'll find general knowledge and some useful tips about Python 3. It is wonderful as a cheatsheet and I use it all the time by searching the keyword I need help with.
+
+Most of the stuff you'd learn from online courses is featured, and it covers both the fundamentals as well as some advanced elements of the language. Enjoy!!
 
 Original source can be found here: https://learnxinyminutes.com/docs/python/
 
-It's already heavily edited by the time I'm writing this (2020-08-03) so expect a high divergence by the time I'm done. Also, feel free to contribute and make pull requests! Valuable info and contributions are always welcome!!
+It's already heavily edited by the time I'm writing this (2020-08-03) so expect a high divergence by the time I'm done. Also, feel free to contribute and make pull requests! Valuable info and contributions are always welcome :)
 
 ## Other good resources to learn:
 ### Docs/Questions
