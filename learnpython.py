@@ -873,6 +873,8 @@ deactivate
 # Pandas is a module made for data analysis and manipulation. It offers
 # data structures and operations for manipulating numerical tables and time series.
 
+# https://pandas.pydata.org/
+
 # Pandas works with DataFrames, comprised of rows and columns
 # and Series, successions of values (equivalent to 1 column)
 
