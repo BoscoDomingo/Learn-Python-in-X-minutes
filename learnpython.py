@@ -873,31 +873,56 @@ deactivate
 # Pandas is a module made for data analysis and manipulation. It offers
 # data structures and operations for manipulating numerical tables and time series.
 
-# Pandas works with Dataframes, comprised of rows and columns.
-# They can be created from dictionaries
+# Pandas works with DataFrames, comprised of rows and columns
+# and Series, successions of values (equivalent to 1 column)
+
 import pandas
 
-my_data = {"Column1": ["Row1", "Row2", "Row3", "Row4"],
-           "Column2": [1, 2, 2, 3]}
-my_df = pandas.DataFrame(my_data)
+my_series = pandas.Series([1,2,3])
+# DFs can be created from dictionaries
+my_df = pandas.DataFrame({
+    "Column1": ["Row1", "Row2", "Row3", "Row4"],
+    "Column2": my_series
+}) #Row4 will have NA/NaN value since my_series only has 3 values
 
-# read from/write to csv
-df = pandas.read_csv("/somedirectory/csv")  # df is our dataframe
+# Read from/Write to csv
+df = pandas.read_csv("/somedirectory/csv")
 df.to_csv("name of the csv file.csv")
 
-# read from/write to excel
+# Read from/Write to Excel
 df2 = pandas.read_excel("/somedirectory/excel")
 df2.to_xlsx("name of the excel file.xlsx")
+
+# Adding new columns
+my_df['Column3'] = [some_value, some_other_value]
+
+# describe() is useful to get a quick glance at the data
+# it will provide several metrics (count, mean, std, min, max...)
+df.describe()
 
 # Change the indexes for the rows with index()
 df.index = ["ROW1", "ROW2"]
 
 df.head()  # First 5 rows of data
-df_column1 = df[["Column1", "Column4"]] # Creates a new Dataframe out of specific columns
+df.head(n) # First n rows of data
+
+# hist() can be used to get a histogram of a specific column or Series
+df.hist('Column1')
+
+# scatter() can be used to get a scatter diagram of 2 given columns or Series
+df.plot.scatter('Column1', 'Column2')
+
+# Locating data in a DataFrame
+df['Column2'][1]    # 2nd element of the Column
+df[["Column1", "Column4"]] # New Dataframe out of specific columns
+df[0:2]             # DataFrame from the first 2 columns of df
+# Remember that 0:2 will have 2 rows: 0 and 1. It is a closed-open range
+# In mathematical terms: [0,2) = [0,1]
+sliced_df = df[0:3, 1:10]   # Grabs the first 3 columns, 2nd to 10th rows
 
 # Use single or double brackets to obtain Series or DataFrames
-print(df['Column3'])    # Print out column as a Series
-print(df[['Column3']])  # Print out column as a DataFrame
+df['Column3']       # Column as a Series
+df[['Column3']]     # Column as a new DataFrame
 
 # loc is used to locate data with column headers and row indexes
 df.loc[0, "Column1"]  # => Row1
@@ -907,17 +932,19 @@ df.loc[0, "NotAColumn"]  # => KeyError
 df.iloc[0, 0]  # => Row1
 df.iloc[0, 4000]  # IndexError
 
-# Both can be used for slicing, too.
-# Remember that 0:2 will have 2 rows: 0 and 1. It is a closed-open range
-# In mathematical terms, [0,2) = [0,1]
-sliced_df = df[0:2, 1:10]
-
 # Unique finds each individual value
 df["Column2"].unique()  # => 1,2,3
 
 #Filtering by value can also be done
 df["Column2"] >= 2  # => 2, 3
 df1 = df[df["Column2"] >= 2]
+
+# Operating with values
+# Operations can be done to columns/Series, so they are applied to each value
+df["Column2"] * 5 # => [5, 10, 15]
+
+# apply() is a strong tool which accepts lambda functions
+df["Column2"].apply(lambda val: val > 2) # => [3]
 
 ####################################################
 ## 5.2 NumPy
