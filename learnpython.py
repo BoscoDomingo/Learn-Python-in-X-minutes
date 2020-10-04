@@ -918,7 +918,7 @@ df.plot.scatter('Column1', 'Column2')
 df['Column2'][1]    # 2nd element of the Column
 df[["Column1", "Column4"]] # New Dataframe out of specific columns
 df[0:2]             # DataFrame from the first 2 columns of df
-# Remember that 0:2 will have 2 rows: 0 and 1. It is a closed-open range
+# Remember that 0:2 will have 2 columns. It is a closed-open range
 # In mathematical terms: [0,2) = [0,1]
 sliced_df = df[0:3, 1:10]   # Grabs the first 3 columns, 2nd to 10th rows
 
@@ -926,9 +926,10 @@ sliced_df = df[0:3, 1:10]   # Grabs the first 3 columns, 2nd to 10th rows
 df['Column3']       # Column as a Series
 df[['Column3']]     # Column as a new DataFrame
 
-# loc is used to locate data with column headers and row indexes
-df.loc[0, "Column1"]  # => Row1
+# loc is used to locate data with row indexes and column headers
+df.loc[0, "Column1"]  # => Row1, with only Column1's value
 df.loc[0, "NotAColumn"]  # => KeyError
+df.loc[0] # => Row1 entirely
 
 # iloc does the same but using only integers
 df.iloc[0, 0]  # => Row1
@@ -963,6 +964,7 @@ a[3] # => 3
 array.size # => 5
 array.dim # => 1
 array.shape # => (5,) gives the size of the array for each dimension, in a tuple
+            # (rows, columns)
 array.dtype # => dtype('int64')
 type(array) # => numpy.ndarray
 
@@ -1002,10 +1004,11 @@ np.linspace(-2, 2, num=9)  # => [-2, -1.5, -1, -0.5. 0, 0.5, 1, 1.5, 2]
 array = np.array([[11, 12, 13], [21, 22, 23], [31, 32, 33]])
 array.ndim  # => 2
 array.shape # (3,3) where the first number is the number of lists (rows),
-# the second is the number of elements in each list (columns)
+            # the second the number of elements in each list (columns)
 array.size  # => 9 (3x3)
 b = np.array([[1, 0, 1], [0, 1, 1]])
-b.size  # => (2,3)
+b.shape # => (2,3)
+b.size  # => 6
 
 # And as with 1-D arrays, they can be operated upon, just like matrices
 # The only particular operation is matrix multiplication
