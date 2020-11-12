@@ -77,6 +77,10 @@ input_string_var = input("Enter some data: ") # Returns the data as a string
 1 + 3 * 2  # => 7
 (1 + 3) * 2  # => 8
 
+# Round numbers manually with round()
+round(5.5) # => 6
+round(5.758, 2) # => 5.76
+
 # Work in other bases (binary, octal and hexadecimal)
 0b10 # => 2
 0o10 # => 8
@@ -236,6 +240,8 @@ some_unknown_var  # Raises a NameError
 # if can be used as an expression
 # Equivalent of C's '?:' ternary operator
 "yahoo!" if 3 > 2 else 2  # => "yahoo!"
+# Un-pythonic alternative, usually best to avoid it
+(value_if_false, value_if_true)[test]
 
 # Lists store sequences
 li = []
@@ -334,6 +340,10 @@ print(reversed(li)) # returns new iterator, not list
 
 # Generally, you want to use sorted() since it can work with immutable objects
 # and won't mess up the original
+
+# Choose a random element of any collection
+import random
+random.choice(iterable)
 
 # Tuples are like lists but are immutable.
 tup = (1, 2, 3)
@@ -915,6 +925,7 @@ df.hist('Column1')
 df.plot.scatter('Column1', 'Column2')
 
 # Locating data in a DataFrame
+# https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html
 df['Column2'][1]    # 2nd element of the Column
 df[["Column1", "Column4"]] # New Dataframe out of specific columns
 df[0:2]             # DataFrame from the first 2 columns of df
@@ -925,6 +936,7 @@ sliced_df = df[0:3, 1:10]   # Grabs the first 3 columns, 2nd to 10th rows
 # Use single or double brackets to obtain Series or DataFrames
 df['Column3']       # Column as a Series
 df[['Column3']]     # Column as a new DataFrame
+df[["Column3", "Column4"]] # New DF from those columns
 
 # loc is used to locate data with row indexes and column headers
 df.loc[0, "Column1"]  # => Row1, with only Column1's value
