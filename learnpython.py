@@ -908,6 +908,9 @@ df2.to_xlsx("name of the excel file.xlsx")
 # Adding new columns
 my_df['Column3'] = [some_value, some_other_value]
 
+# Simple way to write a new column derived from others
+my_df["Column7"] = [int(row[1]["Column1"] and row[1]["Column2"]) for row in my_df.iterrows()]
+
 # describe() is useful to get a quick glance at the data
 # it will provide several metrics (count, mean, std, min, max...)
 df.describe()
@@ -1408,6 +1411,13 @@ print(list(zip_result)) # => [(1, 'one'), (2, 'two'), (3, 'three')]
 numbers, names = zip(list(zip_result))
 numbers # => (1, 2, 3)
 names # => ('one', 'two', 'three')
+
+# Cartesian product using itertools:
+import itertools
+
+somelists = [[1, 2, 3],['a', 'b'],[4, 5]]
+list(itertools.product(*somelists))
+
 
 # Decorators
 # In this example `beg` wraps `say`. If say_please is True then it
