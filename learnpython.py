@@ -949,6 +949,7 @@ df.loc[0] # => Row1 entirely
 # iloc does the same but using only integers
 df.iloc[0, 0]  # => Row1
 df.iloc[0, 4000]  # IndexError
+df.iloc[:, 0:4] # All rows, only the first 3 columns
 
 # Unique finds each individual value
 df["Column2"].unique()  # => 1,2,3
@@ -960,6 +961,10 @@ df1 = df[df["Column2"] >= 2]
 # Operating with values
 # Operations can be done to columns/Series, so they are applied to each value
 df["Column2"] * 5 # => [5, 10, 15]
+
+# Drop specific columns
+df_1 = df.copy()
+df_1 = df_1.drop(df_1.columns[-9:-5], axis=1)
 
 # apply() is a strong tool which accepts lambda functions
 df["Column2"].apply(lambda val: val > 2) # => [3]
