@@ -888,21 +888,25 @@ deactivate
 # Pandas works with DataFrames, comprised of rows and columns
 # and Series, successions of values (equivalent to 1 column)
 
-import pandas
+# Commonly imported with
+import pandas as pd
+# Changing and resetting options
+pd.options.display.max_rows = 30
+pd.reset_option("max_rows")
 
-my_series = pandas.Series([1,2,3])
+my_series = pd.Series([1,2,3])
 # DFs can be created from dictionaries
-my_df = pandas.DataFrame({
+my_df = pd.DataFrame({
     "Column1": ["Row1", "Row2", "Row3", "Row4"],
     "Column2": my_series
 }) #Row4 will have NA/NaN value since my_series only has 3 values
 
 # Read from/Write to csv
-df = pandas.read_csv("/somedirectory/csv")
+df = pd.read_csv("/somedirectory/csv")
 df.to_csv("name of the csv file.csv")
 
 # Read from/Write to Excel
-df2 = pandas.read_excel("/somedirectory/excel")
+df2 = pd.read_excel("/somedirectory/excel")
 df2.to_xlsx("name of the excel file.xlsx")
 
 # Adding new columns
@@ -929,17 +933,16 @@ df.plot.scatter('Column1', 'Column2')
 
 # Locating data in a DataFrame
 # https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html
-df['Column2'][1]    # 2nd element of the Column
+# Use single or double brackets to obtain Series or DataFrames
+df['Column3']       # Column as a Series
+df[['Column3']]     # Column as a DataFrame
 df[["Column1", "Column4"]] # New Dataframe out of specific columns
+
+df['Column2'][1]    # 2nd element of Column2
 df[0:2]             # DataFrame from the first 2 columns of df
 # Remember that 0:2 will have 2 columns. It is a closed-open range
 # In mathematical terms: [0,2) = [0,1]
 sliced_df = df[0:3, 1:10]   # Grabs the first 3 columns, 2nd to 10th rows
-
-# Use single or double brackets to obtain Series or DataFrames
-df['Column3']       # Column as a Series
-df[['Column3']]     # Column as a new DataFrame
-df[["Column3", "Column4"]] # New DF from those columns
 
 # loc is used to locate data with row indexes and column headers
 df.loc[0, "Column1"]  # => Row1, with only Column1's value
@@ -957,6 +960,7 @@ df["Column2"].unique()  # => 1,2,3
 #Filtering by value can also be done
 df["Column2"] >= 2  # => 2, 3
 df1 = df[df["Column2"] >= 2]
+df1 = df[df.column2.isin([1, 4])] # Multiple explicit values
 
 # Operating with values
 # Operations can be done to columns/Series, so they are applied to each value
