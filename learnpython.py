@@ -870,8 +870,8 @@ python -m venv <MyEnv>
 
 # This should now put you inside the virtual environment
 # Again, ensure pip is up to date and start installing modules!
-python -m pip install --upgrade pip
-# `easy_install pip` if that one doesn't work
+python -m pip install -U pip # 'python -m easy_install pip' if it doesn't work
+
 pip install modulename
 
 # And exit the virtual environment when done
@@ -960,7 +960,8 @@ df["Column2"].unique()  # => 1,2,3
 #Filtering by value can also be done
 df["Column2"] >= 2  # => 2, 3
 df1 = df[df["Column2"] >= 2]
-df1 = df[df.column2.isin([1, 4])] # Multiple explicit values
+df1 = df[df.column2.isin([1, 4])] # Multiple explicit values for one column
+df1 = df[(df["Column2"] == 1) & (df["Column3"] == "some string")] # Multiple-column filtering
 
 # Operating with values
 # Operations can be done to columns/Series, so they are applied to each value
